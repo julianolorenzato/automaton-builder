@@ -1,25 +1,35 @@
 package main
 
 import (
-	"fmt"
+	// "fmt"
 
-	"automaton-builder/automaton"
+	// "automaton-builder/automaton"
+	"automaton-builder/decode"
+	"fmt"
 )
 
 func main() {
-	m, err := automaton.NewAdjacencyMatrix()
+	// m, err := automaton.NewAdjacencyMatrix()
+
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+
+	// for i := range m {
+	// 	for _, v := range m[i] {
+	// 		if v != nil {
+	// 			fmt.Println(*v)
+	// 		} else {
+	// 			fmt.Println("NULL")
+	// 		}
+	// 	}
+	// }
+
+	ad, err := decode.Decode()
 
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("some error ocurred: ", err)
 	}
 
-	for i := range m {
-		for _, v := range m[i] {
-			if v != nil {
-				fmt.Println(*v)
-			} else {
-				fmt.Println("NULL")
-			}
-		}
-	}
+	fmt.Println(ad)
 }
