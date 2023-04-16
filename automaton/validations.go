@@ -31,7 +31,7 @@ func validateQuadratic(am *AdjacencyMatrix) error {
 
 // Check if the initial state is present in adjacency matrix
 func validateInitialState(am *AdjacencyMatrix, is int) error {
-	if len(*am) > is {
+	if len(*am) < is {
 		return errors.New("initial state must be present in adjacency matrix")
 	}
 
@@ -41,7 +41,7 @@ func validateInitialState(am *AdjacencyMatrix, is int) error {
 // Check if all final states are present in adjacency matrix
 func validateFinalStates(am *AdjacencyMatrix, fs []int) error {
 	for _, v := range fs {
-		if len(*am) > v {
+		if len(*am) < v {
 			str := strconv.Itoa(v)
 
 			return errors.New("final state " + str + " is not present in adjacency matrix")
