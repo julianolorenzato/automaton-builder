@@ -1,26 +1,22 @@
 package automaton
 
 import (
-	"errors"
 	"math"
 	"strings"
 )
 
+type AdjacencyMatrix [][]*string
+type InitialState int
+type FinalStates []int
+
 var text string = "- 0 1\n- 1 -\n- 0 -\n"
 
-func NewAdjacencyMatrix() ([][]*string, error) {
+func NewAdjacencyMatrix() (AdjacencyMatrix, error) {
 	// Format the raw text
 	symbols := strings.Fields(text)
 
 	symbolsLen := len(symbols)
 	degree := math.Sqrt(float64(symbolsLen))
-	mod := math.Mod(degree, 1)
-
-	// Throw an error if the degree is not an integer (not quadratic matrix)
-	// There are other ways to a matrix not be quadratic, so, I will need to validate these ways too :(
-	if mod != 0 {
-		return nil, errors.New("the matrix must be quadratic")
-	}
 
 	// Initialize a 2D slice that will be the representation of the adjacency matrix
 	m := make([][]*string, int(degree))

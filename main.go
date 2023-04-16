@@ -4,8 +4,9 @@ import (
 	// "fmt"
 
 	// "automaton-builder/automaton"
-	"automaton-builder/decode"
-	"fmt"
+	// "automaton-builder/decode"
+	// "fmt"
+	// "automaton-builder/util"
 )
 
 func main() {
@@ -25,11 +26,11 @@ func main() {
 	// 	}
 	// }
 
-	ad, err := decode.Decode()
+	// ad, err := decode.Decode()
 
-	if err != nil {
-		fmt.Println("some error ocurred: ", err)
-	}
+	// if err != nil {
+	// 	fmt.Println("some error ocurred: ", err)
+	// }
 
-	fmt.Println(ad)
+	// fmt.Println(ad)
 }

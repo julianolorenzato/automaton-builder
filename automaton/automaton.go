@@ -1,47 +1,60 @@
 package automaton
 
-import "automaton-builder/decode"
+import "automaton-builder/util"
 
 type Automaton struct {
-	initialState *State
+	name string
+	// alphabet     []string
+	states       []State
+	initialState State
+	finalStates  []State
+	transitions  []Transition
 }
 
 type Transition struct {
 	symbol string
-	to     *State
+	from   State
+	to     State
 }
 
 type State struct {
-	isFinal     bool
-	transitions []*Transition
+	id int
 }
 
-func NewAutomaton(ad *decode.AutomatonDescription) *Automaton {
+// Params (AdjacencyMatrix, InitialState, FinalStates)
+func NewAutomaton(am [][]*string, is int, fs []int) *Automaton {
 	a := new(Automaton)
 
-	// for _, v := range ad.States {
-	// 	if v.Initial {
-	// 		transitions = [ad.Transitions]
+	a.initialState = State{id: is}
 
-	// 		a.initialState = &State{
-	// 			isFinal: v.Final,
-	// 			transitions: ,
-	// 		}
-	// 	}
-	// }
+	// Iterate on lines of adjacency matrix
+	for i := range am {
+		// Each line index represent one state id
+		a.states = append(a.states, State{id: i})
 
-	for i := range ad.States {
-		if ad.States[i].Initial {
+		// Verify if state "i" is a final state
+		isFinal := util.Contains(fs, func(finalState int) bool {
+			return i == finalState
+		})
 
-			symbol := ad.Transitions[i].Symbol
-			to := ad.Transitions[i].To
+		if isFinal {
+			a.finalStates = append(a.finalStates, State{id: i})
+		}
 
-			ts = append(ts, &Transition{symbol: symbol, to: &State{}})
+		//Iterate on columns of adjacency matrix
+		for j, v := range am[i] {
+
+			// If the value Aij is not nil there is a transition from i to j with symbol Aij
+			if v != nil {
+				a.transitions = append(a.transitions, Transition{
+					symbol: *v,
+					from:   State{id: i},
+					to:     State{id: j},
+				})
+			}
+
 		}
 	}
-}
 
-func getStateTransitions(stateName string, ad *decode.AutomatonDescription) []*Transition {
-	ts := make([]*Transition, 5)
-
+	return a
 }
