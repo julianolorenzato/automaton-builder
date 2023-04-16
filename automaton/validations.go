@@ -8,20 +8,21 @@ import (
 // Perform all validations and return any errors found
 func validateChain(am *AdjacencyMatrix, is int, fs []int) error {
 	return errors.Join(
-		validateQuadratic(*am),
+		validateQuadratic(am),
 		validateInitialState(am, is),
+		validateFinalStates(am, fs),
 	)
 }
 
 // Check if the adjacency matrix is quadratic
-func validateQuadratic(am AdjacencyMatrix) error {
+func validateQuadratic(am *AdjacencyMatrix) error {
 	var lines int
 	var columns int
 
-	for i := range am {
+	for i := range *am {
 		lines++
 
-		for range am[i] {
+		for range (*am)[i] {
 			columns++
 		}
 	}
