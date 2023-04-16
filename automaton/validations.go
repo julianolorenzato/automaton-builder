@@ -1,14 +1,20 @@
 package automaton
 
-import "errors"
+import (
+	"errors"
+	"strconv"
+)
 
-func validateChain(am *AdjacencyMatrix, is *int, fs *[]int) error {
+// Perform all validations and return any errors found
+func validateChain(am *AdjacencyMatrix, is int, fs []int) error {
 	return errors.Join(
-		validateLinesAndColumns(*am),
+		validateQuadratic(*am),
+		validateInitialState(am, is),
 	)
 }
 
-func validateLinesAndColumns(am AdjacencyMatrix) error {
+// Check if the adjacency matrix is quadratic
+func validateQuadratic(am AdjacencyMatrix) error {
 	var lines int
 	var columns int
 
@@ -27,6 +33,24 @@ func validateLinesAndColumns(am AdjacencyMatrix) error {
 	return nil
 }
 
-func validateInitialState(am AdjacencyMatrix) {
+// Check if the initial state is present in adjacency matrix
+func validateInitialState(am *AdjacencyMatrix, is int) error {
+	if len(*am) > is {
+		return errors.New("initial state must be present in adjacency matrix")
+	}
 
+	return nil
+}
+
+// Check if all final states are present in adjacency matrix
+func validateFinalStates(am *AdjacencyMatrix, fs []int) error {
+	for _, v := range fs {
+		if len(*am) > v {
+			str := strconv.Itoa(v)
+
+			return errors.New("final state " + str + " is not present in adjacency matrix")
+		}
+	}
+
+	return nil
 }
