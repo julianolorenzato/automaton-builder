@@ -11,7 +11,7 @@ type FinalStates []int
 
 var text string = "- 0 1\n- 1 -\n- 0 -\n"
 
-func NewAdjacencyMatrix() (AdjacencyMatrix, error) {
+func NewAdjacencyMatrix() *AdjacencyMatrix {
 	// Format the raw text
 	symbols := strings.Fields(text)
 
@@ -19,7 +19,7 @@ func NewAdjacencyMatrix() (AdjacencyMatrix, error) {
 	degree := math.Sqrt(float64(symbolsLen))
 
 	// Initialize a 2D slice that will be the representation of the adjacency matrix
-	m := make([][]*string, int(degree))
+	m := make(AdjacencyMatrix, int(degree))
 	for i := range m {
 		m[i] = make([]*string, int(degree))
 	}
@@ -38,5 +38,5 @@ func NewAdjacencyMatrix() (AdjacencyMatrix, error) {
 		}
 	}
 
-	return m, nil
+	return &m
 }

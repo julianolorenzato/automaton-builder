@@ -16,19 +16,14 @@ func validateChain(am *AdjacencyMatrix, is int, fs []int) error {
 
 // Check if the adjacency matrix is quadratic
 func validateQuadratic(am *AdjacencyMatrix) error {
-	var lines int
-	var columns int
+	lines := len(*am)
 
 	for i := range *am {
-		lines++
+		columns := len((*am)[i])
 
-		for range (*am)[i] {
-			columns++
+		if lines != columns {
+			return errors.New("the adjacency matrix must be quadratic")
 		}
-	}
-
-	if lines != columns {
-		return errors.New("the adjacency matrix must be quadratic")
 	}
 
 	return nil

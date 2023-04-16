@@ -1,6 +1,8 @@
 package automaton
 
-import "automaton-builder/util"
+import (
+	"automaton-builder/util"
+)
 
 type Automaton struct {
 	name string
@@ -22,8 +24,14 @@ type State struct {
 }
 
 // Params (AdjacencyMatrix, InitialState, FinalStates)
-func NewAutomaton(am [][]*string, is int, fs []int) *Automaton {
-	a := new(Automaton)
+func NewAutomaton(am AdjacencyMatrix, is int, fs []int) (*Automaton, error) {
+	// Perfom validation in the input data
+	err := validateChain(&am, is, fs)
+	if err != nil {
+		return nil, err
+	}
+
+	a := Automaton{}
 
 	a.initialState = State{id: is}
 
@@ -56,5 +64,5 @@ func NewAutomaton(am [][]*string, is int, fs []int) *Automaton {
 		}
 	}
 
-	return a
+	return &a, nil
 }
