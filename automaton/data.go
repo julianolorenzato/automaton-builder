@@ -9,9 +9,9 @@ type AdjacencyMatrix [][]*string
 type InitialState int
 type FinalStates []int
 
-var text string = "- 0 1\n- 1 -\n- 0 -\n"
+var Text string = "- 0 1\n- 1 -\n- 0 -\n"
 
-func NewAdjacencyMatrix() *AdjacencyMatrix {
+func NewAdjacencyMatrix(text string) *AdjacencyMatrix {
 	// Format the raw text
 	symbols := strings.Fields(text)
 

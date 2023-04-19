@@ -2,17 +2,27 @@ package main
 
 import (
 	"automaton-builder/automaton"
+	// "encoding/json"
 	"fmt"
 	"os"
 )
 
 func main() {
-	am := automaton.NewAdjacencyMatrix()
+	am := automaton.NewAdjacencyMatrix("- 0 1\n- 1 -\n- 0 -\n")
 
 	a, err := automaton.NewAutomaton(*am, 2, []int{0, 1, 2})
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 	}
 
-	fmt.Println(a)
+	name, states, finalStates := a.GetInfo()
+
+	fmt.Println(name)
+	fmt.Println(states)
+	fmt.Println(finalStates)
+
+	s, ok, err := a.Perform([]string{"1"})
+
+	fmt.Println(s, ok, err)
+
 }
