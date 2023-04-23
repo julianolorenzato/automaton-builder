@@ -32,3 +32,13 @@ func Contains[T any](s []T, fn func(T) bool) bool {
 
 	return false
 }
+
+func IndexOf[T any](s []T, fn func(T) bool) int {
+	for i := range s {
+		if fn(s[i]) {
+			return i
+		}
+	}
+
+	return -1
+}
