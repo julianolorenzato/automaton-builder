@@ -29,13 +29,13 @@ func main() {
 
 	// fmt.Println(s, ok, err)
 
-	file, err := os.Open("input.csv")
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
+	// file, err := os.Open("input.csv")
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// defer file.Close()
 
-	m, _ := csv.NewReader(file).ReadAll()
+	m, _ := csv.NewReader(os.Stdin).ReadAll()
 
 	a, err := automaton.NewDFA(m, []int{3})
 
@@ -45,8 +45,8 @@ func main() {
 
 	fmt.Println(*a)
 
-	isValid, _ := a.Perform([]string{"0", "1", "1", "0", "1"})
+	isValid, _ := a.Perform([]string{"0", "1", "1", "0", "1", "1"})
+	// fmt.Println(*a.CurrentState)
 
-	fmt.Println(*a.CurrentState)
 	fmt.Println(isValid)
 }
