@@ -14,3 +14,12 @@ type Pair struct {
 	symbol *string
 	from   *State
 }
+
+// func removeDuplicates[T string | int](s []T) bool {
+// 	duplicates := make(map[T]int)
+
+// 	for i := range s {
+
+// 	}
+
+// }

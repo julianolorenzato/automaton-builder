@@ -2,18 +2,12 @@ package main
 
 import (
 	"automaton-builder/automaton"
-	"encoding/csv"
+	"automaton-builder/decode"
 	"fmt"
-	"os"
 )
 
 func main() {
-	var err error
-
-	m, err := csv.NewReader(os.Stdin).ReadAll()
-	if err != nil {
-		fmt.Println(err)
-	}
+	m := decode.DecodeCSV()
 
 	a, err := automaton.NewDFA(m)
 	if err != nil {
